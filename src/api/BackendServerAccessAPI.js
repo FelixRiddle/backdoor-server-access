@@ -9,10 +9,36 @@ module.exports = class BackendServerAccessAPI {
     }
     
     /**
+     * Set backend url
+     * 
+     * @param {*} url 
+     */
+    setUrl(url) {
+        this.url = url;
+    }
+    
+    /**
      * Get email confirmation key
      */
     async emailConfirmationKey() {
         const url = `${this.url}/auth/email/email_confirmation`;
+        
+        const res = await this.instance.get(url)
+            .then((res) => {
+                return res;
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        
+        return res.data.key;
+    }
+    
+    /**
+     * Get create password private key
+     */
+    async createPasswordKey() {
+        const url = `${this.url}/auth/password/create`;
         
         const res = await this.instance.get(url)
             .then((res) => {
