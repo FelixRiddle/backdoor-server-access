@@ -1,9 +1,8 @@
 const cors = require('cors');
 const express = require('express');
 
-const { MYSQLDC_FetchENV } = require("express-authentication");
-
-const routes = require("./routes/index")
+const serverRouter = require('./routes/index');
+const { envServerUrl } = require("../env/env");
 
 /**
  * Server
@@ -14,23 +13,20 @@ module.exports = class Server {
         this.app = app;
     }
     
-    /**
-     * Mount routes
-     */
-    mountRoutes() {
-        this.app.use(getUser, routes);
-    }
-    
+    // --- Initialization ---
     /**
      * Start serving requests
      */
-    serve() {
+    async serve() {
+        await this.setup();
+        
         // Open server
         this.app.listen(process.env.SERVER_PORT, () => {
-            console.log(`Server running at http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
+            console.log(`Server running at ${envServerUrl()}`);
         });
     }
     
+    // --- Setup ---
     /**
      * Setup all
      */
@@ -38,6 +34,13 @@ module.exports = class Server {
         await this.setupMiddleware();
         
         this.mountRoutes();
+    }
+    
+    /**
+     * Mount routes
+     */
+    mountRoutes() {
+        this.app.use(serverRouter);
     }
     
     /**
@@ -132,18 +135,5 @@ module.exports = class Server {
                 ...whitelist,
             ]
         }));
-        
-        // Connect to db
-        try {
-            const mysqlConn = MYSQLDC_FetchENV();
-            
-            await mysqlConn.authenticate();
-            
-            mysqlConn.sync();
-            
-            console.log("Successfully connected to db");
-        } catch(err) {
-            console.error(err);
-        }
     }
 };
