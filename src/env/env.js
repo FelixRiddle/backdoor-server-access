@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+
 /**
  * Take variables from the environment and get the server url
  * 
@@ -25,7 +27,18 @@ function isEmailDisabled() {
     return !process.env.DISABLE_EMAIL || process.env.DISABLE_EMAIL.toLowerCase() === "false";
 }
 
+/**
+ * Setup env
+ */
+function setupEnv() {
+    // We will just use the default for now
+    dotenv.config({
+        path: ".env.default"
+    });
+}
+
 module.exports = {
     envServerUrl,
-    isEmailDisabled
+    isEmailDisabled,
+    setupEnv,
 };

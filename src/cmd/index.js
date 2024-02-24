@@ -1,14 +1,11 @@
-const dotenv = require("dotenv");
 const { ArgumentParser } = require("argparse");
 
 const GeneralBackdoorAccessLocalStorage = require("../env/private/GenearlBackdoorAccessLocalStorage");
 
 const checkAndRunServerCommands = require('./server');
+const { setupEnv } = require("../env/env");
 
-// We will just use the default for now
-dotenv.config({
-    path: ".env.default"
-});
+setupEnv();
 
 const parser = new ArgumentParser({
     description: "Argparse example"
