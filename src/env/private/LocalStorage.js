@@ -35,6 +35,8 @@ module.exports = class LocalStorage {
             length: 64,
             numbers: true,
         });
+        
+        return this;
     }
     
     // --- Filesystem storage ---
@@ -43,6 +45,8 @@ module.exports = class LocalStorage {
      */
     setFilePath(filePath) {
         this.filePath = filePath;
+        
+        return this;
     }
     
     /**
@@ -54,6 +58,8 @@ module.exports = class LocalStorage {
         };
         
         fs.writeFileSync(this.filePath, JSON.stringify(data));
+        
+        return this;
     }
     
     /**

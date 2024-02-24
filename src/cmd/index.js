@@ -1,6 +1,6 @@
 const { ArgumentParser } = require("argparse");
 
-const createPrivateKeyDirectories = require("../env/private/createPrivateKeyDirectories");
+const GeneralBackdoorAccessLocalStorage = require("../env/private/GenearlBackdoorAccessLocalStorage");
 
 const parser = new ArgumentParser({
     description: "Argparse example"
@@ -16,8 +16,9 @@ parser.add_argument("--serve", {
 let args = parser.parse_args();
 
 (async () => {
-    createPrivateKeyDirectories();
-    console.log('Folders created!');
+    // Create folders and store keys
+    const gnrl = new GeneralBackdoorAccessLocalStorage();
+    gnrl.initialize();
     
     // await serverMain(args);
 })();

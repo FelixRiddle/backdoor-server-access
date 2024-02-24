@@ -1,7 +1,7 @@
 const axios = require("axios");
 
-const { serverUrl } = require("../env.js");
-const LocalStorage = require("./LocalStorage.js");
+const { serverUrl } = require("../../env.js");
+const LocalStorage = require("../LocalStorage.js");
 
 /**
  * Reset password private key management
