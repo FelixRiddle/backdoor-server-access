@@ -15,6 +15,9 @@ module.exports = class BackendServerAccessAPI {
      */
     setUrl(url) {
         this.url = url;
+        this.setInstance();
+        
+        return this;
     }
     
     /**
@@ -65,5 +68,7 @@ module.exports = class BackendServerAccessAPI {
             timeout: 2000,
             headers,
         });
+        
+        return this;
     }
 };
