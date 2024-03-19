@@ -2,7 +2,8 @@ const cors = require('cors');
 const express = require('express');
 
 const serverRouter = require('./routes/index');
-const { envServerUrl } = require("../env/env");
+// const { envServerUrl } = require("../env/env");
+const ConfMap = require("felixriddle.configuration-mappings");
 
 /**
  * Server
@@ -20,10 +21,9 @@ module.exports = class Server {
     async serve() {
         await this.setup();
         
-        // Open server
-        this.app.listen(process.env.SERVER_PORT, () => {
-            console.log(`Server running at ${envServerUrl()}`);
-        });
+        // Complete implementation of port(env, default and ephemeral) management
+        const locSelector = new ConfMap.LocationSelection();
+        await locSelector.selectLocation(this.app);
     }
     
     // --- Setup ---
