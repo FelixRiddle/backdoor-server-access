@@ -23,7 +23,7 @@ module.exports = class Server {
         
         // Complete implementation of port(env, default and ephemeral) management
         const locSelector = new ConfMap.LocationSelection();
-        await locSelector.selectLocation(this.app);
+        await locSelector.selectLocation(this.app, 'backdoor-server-access');
     }
     
     // --- Setup ---
